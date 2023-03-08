@@ -1,7 +1,11 @@
 # Note: you need to be using OpenAI Python v0.27.0 for the code below to work
+import os
 import openai
 
-openai.ChatCompletion.create(
+openai.organization = os.getenv("OPENAI_ORGANIZATION")
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+response = openai.ChatCompletion.create(
   model="gpt-3.5-turbo",
   messages=[
         {"role": "system", "content": "You are a helpful assistant."},
@@ -10,3 +14,5 @@ openai.ChatCompletion.create(
         {"role": "user", "content": "Where was it played?"}
     ]
 )
+
+print(response['choices'][0]['message']['content'])
